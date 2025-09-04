@@ -1,0 +1,21 @@
+// Flowchart grammar for Mermaid diagrams
+start: statement+
+
+statement: node_statement
+        | edge_statement
+        | subgraph_statement
+        | direction_statement
+
+node_statement: NODE_ID [node_text] [node_style]
+edge_statement: NODE_ID edge_type NODE_ID [edge_text]
+subgraph_statement: "subgraph" [SUBGRAPH_ID] NL statement+ "end"
+direction_statement: "direction" ("TB" | "BT" | "RL" | "LR")
+
+edge_type: "-->" | "---" | "-..-" | "==>"
+node_style: "[" /[^\\]]+/ "]"
+node_text: "(" /[^)]+/ ")"
+edge_text: "|" /[^|]+/ "|"
+
+NODE_ID: /[A-Za-z][A-Za-z0-9_]*/
+SUBGRAPH_ID: /[A-Za-z][A-Za-z0-9_]*/
+NL: "\\n"
